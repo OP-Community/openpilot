@@ -55,6 +55,13 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       false,
     },
     {
+      "op_lat_alka",
+      tr("Always-on Lane Keeping Assist"),
+      tr("Enable lateral control even when openpilot is not engaged."),
+      "../assets/icons/speed_limit.png",
+      true,
+    },
+    {
       "RecordFront",
       tr("Record and Upload Driver Camera"),
       tr("Upload data from the driver facing camera and help improve the driver monitoring algorithm."),

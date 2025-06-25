@@ -21,6 +21,7 @@ from openpilot.selfdrive.selfdrived.alertmanager import AlertManager, set_offroa
 
 from openpilot.system.hardware import HARDWARE
 from openpilot.system.version import get_build_metadata
+from opendbc.safety import ALTERNATIVE_EXPERIENCE
 
 REPLAY = "REPLAY" in os.environ
 SIMULATION = "SIMULATION" in os.environ
@@ -54,6 +55,8 @@ class SelfdriveD:
       self.CP = CP
 
     self.car_events = CarSpecificEvents(self.CP)
+
+    self.alka = bool(self.CP.alternativeExperience & ALTERNATIVE_EXPERIENCE.ALKA)
 
     # Setup sockets
     self.pm = messaging.PubMaster(['selfdriveState', 'onroadEvents'])
@@ -111,7 +114,7 @@ class SelfdriveD:
     self.experimental_mode = False
     self.personality = self.read_personality_param()
     self.recalibrating_seen = False
-    self.state_machine = StateMachine()
+    self.state_machine = StateMachine(self.alka)
     self.rk = Ratekeeper(100, print_delay_threshold=None)
 
     # some comma three with NVMe experience NVMe dropouts mid-drive that

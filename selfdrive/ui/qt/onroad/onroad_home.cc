@@ -47,7 +47,7 @@ void OnroadWindow::updateState(const UIState &s) {
   alerts->updateState(s);
   nvg->updateState(s);
 
-  QColor bgColor = bg_colors[s.status];
+  QColor bgColor = bg_colors[s.scene.alka_active && s.status == STATUS_DISENGAGED ? STATUS_ALKA : s.status];
   if (bg != bgColor) {
     // repaint border
     bg = bgColor;

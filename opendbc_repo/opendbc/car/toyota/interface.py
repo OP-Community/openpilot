@@ -59,8 +59,11 @@ class CarInterface(CarInterfaceBase):
 
     if candidate == CAR.TOYOTA_PRIUS:
       stop_and_go = True
-      # TSSP Prius uses pose-based curvature for better control
-      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning, use_steering_angle=False)
+      # Only give steer angle deadzone to for bad angle sensor prius
+      for fw in car_fw:
+        if fw.ecu == "eps" and not fw.fwVersion == b'8965B47060\x00\x00\x00\x00\x00\x00':
+          ret.steerActuatorDelay = 0.25
+          CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning, steering_angle_deadzone_deg=0.2)
 
     elif candidate in (CAR.LEXUS_RX, CAR.LEXUS_RX_TSS2):
       stop_and_go = True

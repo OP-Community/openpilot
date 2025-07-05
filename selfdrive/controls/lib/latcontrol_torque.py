@@ -6,6 +6,7 @@ from opendbc.car.interfaces import LatControlInputs
 from opendbc.car.vehicle_model import ACCELERATION_DUE_TO_GRAVITY
 from openpilot.selfdrive.controls.lib.latcontrol import LatControl
 from openpilot.common.pid import PIDController
+from opendbc.car.toyota.values import CAR
 
 # At higher speeds (25+mph) we can assume:
 # Lateral acceleration achieved by a specific car correlates to
@@ -48,6 +49,11 @@ class LatControlTorque(LatControl):
       if self.use_steering_angle:
         actual_curvature = actual_curvature_vm
         curvature_deadzone = abs(VM.calc_curvature(math.radians(self.steering_angle_deadzone_deg), CS.vEgo, 0.0))
+      elif self.CP.carFingerprint == CAR.TOYOTA_PRIUS:
+        assert calibrated_pose is not None
+        actual_curvature_pose = calibrated_pose.angular_velocity.yaw / CS.vEgo
+        actual_curvature = np.interp(CS.vEgo, [2.0, 5.0], [actual_curvature_vm, actual_curvature_pose])
+        curvature_deadzone = 0.0
       else:
         assert calibrated_pose is not None
         actual_curvature_pose = calibrated_pose.angular_velocity.yaw / CS.vEgo

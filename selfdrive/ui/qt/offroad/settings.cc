@@ -62,11 +62,11 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       true,
     },
     {
-      "IsMetric",
-      tr("Use Metric System"),
-      tr("Display speed in km/h instead of mph."),
-      "../assets/icons/metric.png",
-      false,
+      "op_lat_alka",
+      tr("Alawys-on Lane Keeping Assist"),
+      tr("Enable lateral control even when openpilot is not engaged)"),
+      "../assets/icons/speed_limit.png",
+      true,
     },
   };
 

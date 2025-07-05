@@ -18,3 +18,7 @@ CarStateT = capnp.lib.capnp._StructModule
 RadarDataT = capnp.lib.capnp._StructModule
 CarControlT = capnp.lib.capnp._StructModule
 CarParamsT = capnp.lib.capnp._StructModule
+
+class OPFlags:
+  LateralALKA = 1
+  pass

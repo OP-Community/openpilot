@@ -39,6 +39,7 @@ def manager_init() -> None:
     ("LanguageSetting", "main_en"),
     ("OpenpilotEnabledToggle", "1"),
     ("LongitudinalPersonality", str(log.LongitudinalPersonality.standard)),
+    ("op_lat_alka", "0"),
   ]
 
   if params.get_bool("RecordFrontLock"):

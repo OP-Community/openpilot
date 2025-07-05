@@ -46,7 +46,7 @@ class LatControlTorque(LatControl):
     else:
       actual_curvature_vm = -VM.calc_curvature(math.radians(CS.steeringAngleDeg - params.angleOffsetDeg), CS.vEgo, params.roll)
       roll_compensation = params.roll * ACCELERATION_DUE_TO_GRAVITY
-      if self.use_steering_angle:
+      if self.use_steering_angle and self.CP.carFingerprint != CAR.TOYOTA_PRIUS:
         actual_curvature = actual_curvature_vm
         curvature_deadzone = abs(VM.calc_curvature(math.radians(self.steering_angle_deadzone_deg), CS.vEgo, 0.0))
       elif self.CP.carFingerprint == CAR.TOYOTA_PRIUS:
